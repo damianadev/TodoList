@@ -1,8 +1,11 @@
 const todoInput = document.querySelector('#todoInput');
 const saveBtn = document.querySelector('#saveBtn');
 const todoList = document.querySelector('#todoList');
+const username = prompt("Enter username..")
 
 const DB_URL = "https://tinkr.tech/sdb/todo_damian"; 
+
+//Getting todo
 
 async function getTodo() {
   const response = await fetch(DB_URL);
@@ -10,7 +13,9 @@ async function getTodo() {
 
   todoList.innerHTML = '';
 
-  elements.forEach(todo => {
+  elements
+  .filter(todo => todo.user === username)
+  .forEach(todo => {
     const todoDiv = document.createElement('div');
     todoDiv.className = 'todoElement';
     todoDiv.textContent = todo.text;
@@ -35,6 +40,8 @@ async function getTodo() {
   });
 }
 
+//Saving todo
+
 async function saveTodo() {
   const text = todoInput.value;
   if (!text) return;
@@ -42,7 +49,7 @@ async function saveTodo() {
   await fetch(DB_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text })
+    body: JSON.stringify({ user:username, text })
   });
 
   todoInput.value = '';
