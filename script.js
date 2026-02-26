@@ -2,25 +2,35 @@ const todoInput = document.querySelector('#todoInput');
 const saveBtn = document.querySelector('#saveBtn');
 const todoList = document.querySelector('#todoList');
 
-const DB_URL = "https://tinkr.ee/sdb/todo_damian"; 
-
-async function mydb() {
-  await fetch(DB_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text: "My db" })
-  });
-}
+const DB_URL = "https://tinkr.tech/sdb/todo_damian"; 
 
 async function getTodo() {
   const response = await fetch(DB_URL);
   const elements = await response.json();
 
   todoList.innerHTML = '';
+
   elements.forEach(todo => {
     const todoDiv = document.createElement('div');
     todoDiv.className = 'todoElement';
     todoDiv.textContent = todo.text;
+
+    const deleteBtn = document.createElement('button')
+    deleteBtn.textContent = '❌';
+    deleteBtn.style.marginLeft = '10px';
+
+    deleteBtn.addEventListener('click', async () => {
+      await fetch(`${DB_URL}/${todo.id}`, { method: 'DELETE' });
+      getTodo();
+    });
+
+    const checkBox = document.createElement('input');
+    checkBox.type = 'checkbox';
+    checkBox.style.marginLeft = '50px';
+
+    todoDiv.appendChild(deleteBtn);
+    todoDiv.appendChild(checkBox);
+
     todoList.appendChild(todoDiv);
   });
 }
@@ -41,9 +51,4 @@ async function saveTodo() {
 
 saveBtn.addEventListener('click', saveTodo);
 
-async function init() {
-  await mydb();
-  getTodo();
-}
-
-init();
+getTodo();
