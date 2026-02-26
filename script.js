@@ -32,6 +32,15 @@ async function getTodo() {
     const checkBox = document.createElement('input');
     checkBox.type = 'checkbox';
     checkBox.style.marginLeft = '50px';
+    checkBox.checked = todo.done;
+
+    checkBox.addEventListener('change', async () => {
+      await fetch(`${DB_URL}/${todo.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user: username, text: todo.text, done: checkBox.checked })
+      });
+    });
 
     todoDiv.appendChild(deleteBtn);
     todoDiv.appendChild(checkBox);
@@ -49,7 +58,7 @@ async function saveTodo() {
   await fetch(DB_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ user:username, text })
+    body: JSON.stringify({ user:username, text, done: false})
   });
 
   todoInput.value = '';
