@@ -1,7 +1,7 @@
 const todoInput = document.querySelector('#todoInput');
 const saveBtn = document.querySelector('#saveBtn');
 const todoList = document.querySelector('#todoList');
-const username = prompt("Enter username..")
+const username = prompt("Enter your username..")
 const currentUser = document.querySelector('#currentUser').textContent = username
 
 const DB_URL = "https://tinkr.tech/sdb/todo_damian"; 
