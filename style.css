@@ -15,9 +15,8 @@ main{
 
 
 #todoList{
-  height: 60vh;
   width: 100%;
-
+  height: 60vh;
 
   border: 1px solid black;
 
@@ -66,10 +65,10 @@ main{
 
 }
 
-
 .input-area{
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 #todoInput{
@@ -81,10 +80,18 @@ main{
 
 #saveBtn{
   height: 35px;
+  width: 100px;
   margin-top: 5px;
 
   background: green;
   color: white;
   border: none;
 
+}
+
+.emptyMessage{
+  text-align: center;
+  margin-top: 20px;
+  color: gray;
+  font-style: italic;
 }

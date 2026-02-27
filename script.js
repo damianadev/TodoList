@@ -12,11 +12,19 @@ async function getTodo() {
   const response = await fetch(DB_URL);
   const elements = await response.json();
 
+  const userTodos = elements.filter(todo => todo.user === username);
+
   todoList.innerHTML = '';
 
-  elements
-  .filter(todo => todo.user === username)
-  .forEach(todo => {
+  if (userTodos.length === 0) {
+  const emptyMessage = document.createElement('p');
+  emptyMessage.textContent = "No tasks yet...";
+  emptyMessage.className = "emptyMessage";
+  todoList.appendChild(emptyMessage);
+  return;
+}
+
+  userTodos.forEach(todo => {
     const todoDiv = document.createElement('div');
     todoDiv.className = 'todoDiv';
 
@@ -86,5 +94,12 @@ async function saveTodo() {
 }
 
 saveBtn.addEventListener('click', saveTodo);
+
+todoInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    saveTodo();
+  }
+});
 
 getTodo();
