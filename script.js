@@ -20,7 +20,8 @@ async function getTodo() {
     const todoDiv = document.createElement('div');
     todoDiv.className = 'todoDiv';
 
-    const textSpan = document.createElement('span'); 
+    const textSpan = document.createElement('span');
+    textSpan.className = 'textDiv' 
     textSpan.textContent = todo.text;
 
     const actionsDiv = document.createElement('div');
