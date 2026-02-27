@@ -1,0 +1,67 @@
+
+
+main{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+
+}
+
+
+#todoList{
+  height: 60vh;
+  width: 75vh;
+
+
+  border: 1px solid black;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.todoDiv{
+  display: flex;
+  justify-content:space-between ;
+  align-items: center;
+
+  border-bottom: 1px solid black;
+
+  padding: 10px;
+}
+
+.doneDiv{
+  display: flex;
+  flex-direction: row;
+}
+
+.actionsDiv{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.deleteBtn {
+  height: 25px;
+
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+
+}
+
+#todoInput{
+  margin-top:10px ;
+  height: 30px;
+  width: 66vh;
+}
+
+#saveBtn{
+  height: 35px;
+
+  background: green;
+  color: white;
+  border: none;
+
+}

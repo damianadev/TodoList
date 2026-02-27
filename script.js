@@ -2,6 +2,7 @@ const todoInput = document.querySelector('#todoInput');
 const saveBtn = document.querySelector('#saveBtn');
 const todoList = document.querySelector('#todoList');
 const username = prompt("Enter username..")
+const currentUser = document.querySelector('#currentUser').textContent = username
 
 const DB_URL = "https://tinkr.tech/sdb/todo_damian"; 
 
@@ -17,21 +18,33 @@ async function getTodo() {
   .filter(todo => todo.user === username)
   .forEach(todo => {
     const todoDiv = document.createElement('div');
-    todoDiv.className = 'todoElement';
-    todoDiv.textContent = todo.text;
+    todoDiv.className = 'todoDiv';
 
-    const deleteBtn = document.createElement('button')
-    deleteBtn.textContent = '❌';
-    deleteBtn.style.marginLeft = '10px';
+    const textSpan = document.createElement('span'); 
+    textSpan.textContent = todo.text;
+
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'actionsDiv';
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.className = 'deleteBtn'
 
     deleteBtn.addEventListener('click', async () => {
       await fetch(`${DB_URL}/${todo.id}`, { method: 'DELETE' });
       getTodo();
     });
 
+    const doneDiv = document.createElement('div');
+    doneDiv.className = 'doneDiv';
+
+    const doneChk = document.createElement('p');
+    doneChk.className = 'p';
+    doneChk.textContent = 'Done:';
+
     const checkBox = document.createElement('input');
     checkBox.type = 'checkbox';
-    checkBox.style.marginLeft = '50px';
+    checkBox.className = 'checkBox'
     checkBox.checked = todo.done;
 
     checkBox.addEventListener('change', async () => {
@@ -42,8 +55,14 @@ async function getTodo() {
       });
     });
 
-    todoDiv.appendChild(deleteBtn);
-    todoDiv.appendChild(checkBox);
+    doneDiv.appendChild(doneChk);
+    doneDiv.appendChild(checkBox);
+
+    actionsDiv.appendChild(doneDiv)
+    actionsDiv.appendChild(deleteBtn);
+
+    todoDiv.appendChild(textSpan)
+    todoDiv.appendChild(actionsDiv)
 
     todoList.appendChild(todoDiv);
   });
